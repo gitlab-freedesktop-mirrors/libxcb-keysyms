@@ -89,11 +89,11 @@ xcb_key_symbols_alloc (xcb_connection_t *c)
 
   min_keycode = xcb_get_setup (c)->min_keycode;
   max_keycode = xcb_get_setup (c)->max_keycode;
-  
+
   syms->u.cookie = xcb_get_keyboard_mapping(c,
 					 min_keycode,
 					 max_keycode - min_keycode + 1);
-  
+
   return syms;
 }
 
@@ -197,15 +197,15 @@ xcb_keysym_t xcb_key_symbols_get_keysym (xcb_key_symbols_t *syms,
   xcb_keycode_t min_keycode;
   xcb_keycode_t max_keycode;
   int        per;
-  
+
   if (!syms || xcb_connection_has_error(syms->c))
     return keysym_null;
-  
+
   xcb_key_symbols_get_reply (syms, NULL);
 
   if (!syms->u.reply)
     return keysym_null;
-  
+
   keysyms = xcb_get_keyboard_mapping_keysyms (syms->u.reply);
   min_keycode = xcb_get_setup (syms->c)->min_keycode;
   max_keycode = xcb_get_setup (syms->c)->max_keycode;
@@ -280,7 +280,7 @@ xcb_key_symbols_get_keycode(xcb_key_symbols_t *syms,
               }
           }
   }
-  
+
   return result;
 }
 
@@ -316,14 +316,14 @@ xcb_refresh_keyboard_mapping (xcb_key_symbols_t         *syms,
       syms->tag = TAG_COOKIE;
       min_keycode = xcb_get_setup (syms->c)->min_keycode;
       max_keycode = xcb_get_setup (syms->c)->max_keycode;
-  
+
       syms->u.cookie = xcb_get_keyboard_mapping(syms->c,
 					     min_keycode,
 					     max_keycode - min_keycode + 1);
-      
+
     }
     return 1;
-  } 
+  }
   return 0;
 }
 
